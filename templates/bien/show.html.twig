@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bien{% endblock %}
+
+{% block body %}
+    <h1>Bien</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ bien.id }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ bien.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ bien.prix }}</td>
+            </tr>
+            <tr>
+                <th>Superficie</th>
+                <td>{{ bien.superficie }}</td>
+            </tr>
+            <tr>
+                <th>Date_de_depot</th>
+                <td>{{ bien.dateDeDepot ? bien.dateDeDepot|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Url_image</th>
+                <td>{{ bien.urlImage }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('bien_index') }}">back to list</a>
+
+    <a href="{{ path('bien_edit', {'id': bien.id}) }}">edit</a>
+
+    {{ include('bien/_delete_form.html.twig') }}
+{% endblock %}
