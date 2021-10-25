@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LeBonLogement - Accueil{% endblock %}
+
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('newuser') %}
+        <div class="alert alert-success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('logout') %}
+        <div class="alert alert-success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <div class="alert alert-success">Vous êtes connecté(e), {{ app.user.prenom }} {{ app.user.nom }} !</div>
+    {% endif %}
+    <h1>Bienvenue sur LeBonLogement ! Venez chercher votre logement !</h1>
+{% endblock %}
