@@ -30,8 +30,14 @@ class BienController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $bien->setProprietaire($this->getUser());
             $entityManager->persist($bien);
             $entityManager->flush();
+            $this->get('session')->getFlashBag()->add(
+                'bien',
+                'Bien ajouté avec succès!'
+            );
+
 
             return $this->redirectToRoute('bien_index', [], Response::HTTP_SEE_OTHER);
         }

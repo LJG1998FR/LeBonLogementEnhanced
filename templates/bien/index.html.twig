@@ -1,34 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bien index{% endblock %}
+{% block title %}Liste des Biens{% endblock %}
 
 {% block body %}
-    <h1>Bien index</h1>
+    {% for flashMessage in app.session.flashbag.get('bien') %}
+        <div class="alert alert-success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+    <h1>Liste des Biens</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Adresse</th>
-                <th>Prix</th>
+                <th>Propriétaire</th>
+                <th>Prix (euros)</th>
                 <th>Superficie</th>
-                <th>Date_de_depot</th>
-                <th>Url_image</th>
+                <th>Date de dépôt</th>
+                <th>Photos</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for bien in biens %}
             <tr>
-                <td>{{ bien.id }}</td>
                 <td>{{ bien.adresse }}</td>
+                {% if bien.proprietaire %}
+                    <td>{{ bien.proprietaire.nom }} {{ bien.proprietaire.prenom }}</td>
+                {% endif %}
                 <td>{{ bien.prix }}</td>
                 <td>{{ bien.superficie }}</td>
-                <td>{{ bien.dateDeDepot ? bien.dateDeDepot|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ bien.urlImage }}</td>
-                <td>
-                    <a href="{{ path('bien_show', {'id': bien.id}) }}">show</a>
-                    <a href="{{ path('bien_edit', {'id': bien.id}) }}">edit</a>
+                <td>{{ bien.dateDeDepot ? bien.dateDeDepot|date('d-m-Y H:i:s') : '' }}</td>
+                {% for photobien in photobiens %}
+                    <td>Regarder Photos</td>
+                <td>{% if is_granted('EDIT', bien) %}
+                        <a class="btn btn-primary" role="button" href="{{ path('bien_edit', {'id': bien.id}) }}">Modifier</a>
+                    {% endif %}
+                    <a href="{{ path('bien_delete', {'id': bien.id}) }}">delete</a>
                 </td>
             </tr>
         {% else %}
@@ -39,5 +48,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('bien_new') }}">Create new</a>
+    <a href="{{ path('bien_new') }}">Ajouter Un Bien</a>
 {% endblock %}
