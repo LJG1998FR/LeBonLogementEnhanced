@@ -1,4 +1,8 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_row(form.adresse) }}
+    {{ form_row(form.prix) }}
+    {{ form_row(form.superficie) }}
+    {{ form_row(form.date_de_depot, {'label' : 'Date De Dépôt'}) }}
+    {{ form_row(form.imageFile, {'label' : 'Image(s)', 'attr': {'class': 'urlImage'}}) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

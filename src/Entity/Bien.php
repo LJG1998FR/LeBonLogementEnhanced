@@ -51,6 +51,11 @@ class Bien
      */
     private $imageFile;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="biens")
+     */
+    private $proprietaire;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -131,5 +136,17 @@ class Bien
     }
     public function __toString(){
         return $this->getId();
+    }
+
+    public function getProprietaire(): ?Utilisateur
+    {
+        return $this->proprietaire;
+    }
+
+    public function setProprietaire(?Utilisateur $proprietaire): self
+    {
+        $this->proprietaire = $proprietaire;
+
+        return $this;
     }
 }

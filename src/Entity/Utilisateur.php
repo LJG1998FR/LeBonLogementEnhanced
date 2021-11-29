@@ -69,6 +69,8 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         $this->biens = new ArrayCollection();
     }
 
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -206,6 +208,10 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function __toString(){
+        return $this->getNom().'  '.$this->getPrenom();
+    }
+
     /**
      * @return Collection|Bien[]
      */
@@ -234,8 +240,5 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
-    }
-    public function __toString(){
-        return $this->getNom().'  '.$this->getPrenom();
     }
 }

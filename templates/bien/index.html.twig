@@ -32,8 +32,7 @@
                 <td>{{ bien.prix }}</td>
                 <td>{{ bien.superficie }}</td>
                 <td>{{ bien.dateDeDepot ? bien.dateDeDepot|date('d-m-Y H:i:s') : '' }}</td>
-                {% for photobien in photobiens %}
-                    <td>Regarder Photos</td>
+                <td><img src="{{ asset('uploads/images/')}}{{ bien.urlImage }} "></td>
                 <td>{% if is_granted('EDIT', bien) %}
                         <a class="btn btn-primary" role="button" href="{{ path('bien_edit', {'id': bien.id}) }}">Modifier</a>
                     {% endif %}
