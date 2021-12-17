@@ -6,7 +6,7 @@ use App\Entity\Bien;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class BienType extends AbstractType
 {
@@ -17,7 +17,12 @@ class BienType extends AbstractType
             ->add('prix')
             ->add('superficie')
             ->add('date_de_depot')
-            ->add('imageFile', VichImageType::class)
+            ->add('images', FileType::class,[
+                'label' => false,
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false
+            ])
         ;
     }
 

@@ -3,13 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\BienRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=BienRepository::class)
- * @Vich\Uploadable
  */
 class Bien
 {
@@ -41,20 +42,14 @@ class Bien
     private $date_de_depot;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $url_image;
-
-    /**
-     * @Vich\UploadableField(mapping="biens_images", fileNameProperty="url_image")
-     * @var File
-     */
-    private $imageFile;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="biens")
      */
     private $proprietaire;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="bien",cascade={"persist"})
+     */
+    private $images;
 
     public function getId(): ?int
     {
@@ -109,30 +104,9 @@ class Bien
         return $this;
     }
 
-    public function getUrlImage(): ?string
-    {
-        return $this->url_image;
-    }
-
-    public function setUrlImage(?string $url_image): self
-    {
-        $this->url_image = $url_image;
-
-        return $this;
-    }
-
-    public function setImageFile(File $url_image = null)
-    {
-        $this->imageFile = $url_image;
-    }
-
-    public function getImageFile()
-    {
-        return $this->imageFile;
-    }
-
     public function __construct(){
         $this->date_de_depot=new \Datetime;
+        $this->images = new ArrayCollection();
     }
     public function __toString(){
         return $this->getId();
@@ -146,6 +120,36 @@ class Bien
     public function setProprietaire(?Utilisateur $proprietaire): self
     {
         $this->proprietaire = $proprietaire;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setBien($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getBien() === $this) {
+                $image->setBien(null);
+            }
+        }
 
         return $this;
     }

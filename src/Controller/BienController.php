@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Bien;
+use App\Entity\Image;
 use App\Form\BienType;
 use App\Repository\BienRepository;
+use App\Repository\ImageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,10 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class BienController extends AbstractController
 {
     #[Route('/', name: 'bien_index', methods: ['GET'])]
-    public function index(BienRepository $bienRepository): Response
+    public function index(BienRepository $bienRepository, ImageRepository $imageRepository): Response
     {
         return $this->render('bien/index.html.twig', [
             'biens' => $bienRepository->findAll(),
+            'images' => $imageRepository->findAll(),
         ]);
     }
 
@@ -29,6 +32,26 @@ class BienController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // On récupère les images transmises
+            $images = $form->get('images')->getData();
+            
+            // On boucle sur les images
+            foreach($images as $image){
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                $destination = $this->getParameter('kernel.project_dir').'/public/uploads/images';
+                
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $destination,
+                    $fichier
+                );
+                
+                // On crée l'image dans la base de données
+                $img = new Image();
+                $img->setUrl($fichier);
+                $bien->addImage($img);
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $bien->setProprietaire($this->getUser());
             $entityManager->persist($bien);
@@ -63,6 +86,26 @@ class BienController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // On récupère les images transmises
+            $images = $form->get('images')->getData();
+
+            // On boucle sur les images
+            foreach($images as $image){
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                $destination = $this->getParameter('kernel.project_dir').'/public/uploads/images';
+                
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $destination,
+                    $fichier
+                );
+                
+                // On crée l'image dans la base de données
+                $img = new Image();
+                $img->setUrl($fichier);
+                $bien->addImage($img);
+            }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('bien_index', [], Response::HTTP_SEE_OTHER);
@@ -85,4 +128,28 @@ class BienController extends AbstractController
 
         return $this->redirectToRoute('bien_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/supprime/image/{id}', name: 'bien_delete_image', methods: ['DELETE'])]
+    public function deleteImage(Image $image, Request $request){
+        $data = json_decode($request->getContent(), true);
+
+        // On vérifie si le token est valide
+        if($this->isCsrfTokenValid('delete'.$image->getId(), $data['_token'])){
+            // On récupère le nom de l'image
+            $nom = $image->getUrl();
+            // On supprime le fichier
+            unlink($this->getParameter('app.path.biens_images').'/'.$nom);
+
+            // On supprime l'entrée de la base
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($image);
+            $em->flush();
+
+            // On répond en json
+            return new JsonResponse(['success' => 1]);
+        }else{
+            return new JsonResponse(['error' => 'Token Invalide'], 400);
+        }
+    }
+
 }
