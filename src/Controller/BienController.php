@@ -38,7 +38,7 @@ class BienController extends AbstractController
             // On boucle sur les images
             foreach($images as $image){
                 // On génère un nouveau nom de fichier
-                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                $fichier = uniqid().'.'.$image->getClientOriginalName();
                 $destination = $this->getParameter('kernel.project_dir').'/public/uploads/images';
                 
                 // On copie le fichier dans le dossier uploads
@@ -92,7 +92,7 @@ class BienController extends AbstractController
             // On boucle sur les images
             foreach($images as $image){
                 // On génère un nouveau nom de fichier
-                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                $fichier = uniqid().'.'.$image->guessExtension();
                 $destination = $this->getParameter('kernel.project_dir').'/public/uploads/images';
                 
                 // On copie le fichier dans le dossier uploads
