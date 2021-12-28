@@ -18,6 +18,7 @@ class BienController extends AbstractController
     #[Route('/', name: 'bien_index', methods: ['GET'])]
     public function index(BienRepository $bienRepository, ImageRepository $imageRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('bien/index.html.twig', [
             'biens' => $bienRepository->findAll(),
             'images' => $imageRepository->findAll(),
@@ -27,6 +28,7 @@ class BienController extends AbstractController
     #[Route('/new', name: 'bien_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $bien = new Bien();
         $form = $this->createForm(BienType::class, $bien);
         $form->handleRequest($request);
@@ -74,6 +76,9 @@ class BienController extends AbstractController
     #[Route('/{id}', name: 'bien_show', methods: ['GET'])]
     public function show(Bien $bien): Response
     {
+        if ( $bien->getProprietaire() != $this->getUser() ) {
+            return $this->redirectToRoute('bien_index');
+        }
         return $this->render('bien/show.html.twig', [
             'bien' => $bien,
         ]);
@@ -82,6 +87,9 @@ class BienController extends AbstractController
     #[Route('/{id}/edit', name: 'bien_edit', methods: ['GET','POST'])]
     public function edit(Request $request, Bien $bien): Response
     {
+        if ( $bien->getProprietaire() != $this->getUser() ) {
+            return $this->redirectToRoute('bien_index');
+        }
         $form = $this->createForm(BienType::class, $bien);
         $form->handleRequest($request);
 
@@ -120,6 +128,9 @@ class BienController extends AbstractController
     #[Route('/{id}', name: 'bien_delete', methods: ['POST'])]
     public function delete(Request $request, Bien $bien): Response
     {
+        if ( $bien->getProprietaire() != $this->getUser() ) {
+            return $this->redirectToRoute('bien_index');
+        }
         if ($this->isCsrfTokenValid('delete'.$bien->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($bien);
@@ -131,6 +142,9 @@ class BienController extends AbstractController
 
     #[Route('/supprime/image/{id}', name: 'bien_delete_image', methods: ['DELETE'])]
     public function deleteImage(Image $image, Request $request){
+        if ( $bien->getProprietaire() != $this->getUser() ) {
+            return $this->redirectToRoute('bien_index');
+        }
         $data = json_decode($request->getContent(), true);
 
         // On vérifie si le token est valide
