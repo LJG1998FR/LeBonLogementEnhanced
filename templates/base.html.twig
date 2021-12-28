@@ -30,7 +30,7 @@
                     </ul>
                 </div>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <button type="button" class="btn btn-primary"><a class="liens" href="{{ path ('app_logout') }}">Se déconnecter</a></button> || <button>Modifier Profil</button>
+                    <button type="button" class="btn btn-primary"><a class="liens" href="{{ path ('app_logout') }}">Se déconnecter</a></button> || <button type="button" class="btn btn-primary"><a class="liens" href="{{ path ('utilisateur') }}">Modifier Profil</a></button>
                 {% else %}
                     <button type="button" class="btn btn-primary"><a class="liens" href="{{ path ('app_login') }}">Se connecter</a></button> || <button type="button" class="btn btn-primary"><a class="liens" href="{{ path ('app_register') }}">S'inscrire</a></button>
                 {% endif %}

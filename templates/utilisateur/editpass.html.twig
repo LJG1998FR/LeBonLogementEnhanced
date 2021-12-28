@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification du mot de passe de {{ app.user.nom }} {{ app.user.prenom }} {% endblock %}
+
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('message') %}
+        <div class="alert alert-danger">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    <form method="post">
+        <div class="form-field">
+            <label for="pass">Mot de Passe</label>
+            <input type="password" id="pass" name="pass" class="form-control">
+        </div>
+        <div class="form-field">
+            <label for="pass2">Confirmer Mot de Passe</label>
+            <input type="password" id="pass2" name="pass2" class="form-control">
+        </div>
+        <button class="btn btn-primary">Accepter les changements</button>
+    </form>
+
+{% endblock %}

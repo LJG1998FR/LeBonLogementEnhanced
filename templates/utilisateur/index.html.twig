@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de {{ app.user.nom }} {{ app.user.prenom }} {% endblock %}
+
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('message') %}
+        <div class="alert alert-success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    <p>Nom : {{ app.user.nom }}</p>
+    <p>Prénom : {{ app.user.prenom }}</p>
+    <p>E-mail : {{ app.user.email }}</p>
+    <p>Adresse Principale : {{ app.user.adresseprincipale }}</p>
+    <p>Téléphone : {{ app.user.telephone }}</p>
+    <button type="button" class="btn btn-primary"><a class="liens" href="{{ path('utilisateur_modifierprofil') }} ">Changer le profil</a></button>
+    <button type="button" class="btn btn-primary"><a class="liens" href="{{ path('utilisateur_modifierpass') }} ">Changer le mot de passe</a></button>
+{% endblock %}
