@@ -8,17 +8,21 @@
             {{ flashMessage }}
         </div>
     {% endfor %}
+    <h1>Modification du mot de passe de {{ app.user.nom }} {{ app.user.prenom }}</h1>
 
-    <form method="post">
-        <div class="form-field">
-            <label for="pass">Mot de Passe</label>
-            <input type="password" id="pass" name="pass" class="form-control">
-        </div>
-        <div class="form-field">
-            <label for="pass2">Confirmer Mot de Passe</label>
-            <input type="password" id="pass2" name="pass2" class="form-control">
-        </div>
-        <button class="btn btn-primary">Accepter les changements</button>
-    </form>
+    <div class="form">
+        <form method="post">
+            <div class="form-field">
+                <label for="pass">Mot de Passe</label>
+                <input type="password" id="pass" name="pass" class="form-control">
+            </div>
+            <div class="form-field">
+                <label for="pass2">Confirmer Mot de Passe</label>
+                <input type="password" id="pass2" name="pass2" class="form-control">
+            </div>
+            <button class="btn btn-dark" style="margin-top:10px;">Accepter les changements</button>
+        </form>
+    </div>
+    <button type="button" class="btn btn-dark" id="backtoprofilbutton"><a class="liens" href="{{ path ('utilisateur') }}">Revenir sur la page de profil</a></button>
 
 {% endblock %}

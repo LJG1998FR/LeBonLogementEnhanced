@@ -5,22 +5,36 @@
 {% block body %}
     <h1>S'inscrire</h1>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.nom) }}
-        {{ form_row(registrationForm.prenom,{
-            label:'Prénom'
-        }) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.adresseprincipale,{
-            label:'Adresse Principale'
-        }) }}
-        {{ form_row(registrationForm.telephone,{
-            label:'Téléphone'
-        }) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Mot de passe (6 caractères mininum)'
-        }) }}
+    <div class="form">
+        {{ form_start(registrationForm) }}
+            <div class="form_row">
+                {{ form_row(registrationForm.nom) }}
+            </div>
+            <div class="form_row">
+                {{ form_row(registrationForm.prenom,{
+                    label:'Prénom'
+                }) }}
+            </div>
+            <div class="form_row">
+                {{ form_row(registrationForm.email) }}
+            </div>
+            <div class="form_row">
+                {{ form_row(registrationForm.adresseprincipale,{
+                    label:'Adresse Principale'
+                }) }}
+            </div>
+            <div class="form_row">
+                {{ form_row(registrationForm.telephone,{
+                    label:'Téléphone'
+                }) }}
+            </div>
+            <div class="form_row">
+            {{ form_row(registrationForm.plainPassword, {
+                label: 'Mot de passe (6 caractères mininum)'
+            }) }}
+            </div>
 
-        <button type="submit" class="btn">Inscrivez-vous!</button>
-    {{ form_end(registrationForm) }}
+            <button type="submit" class="btn btn-dark">Inscrivez-vous!</button>
+        {{ form_end(registrationForm) }}
+    </div>
 {% endblock %}

@@ -16,7 +16,7 @@
         {% endblock %}
         {% block navbar %}
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="{{ path ('accueil') }} ">Accueil</a>
+                <a class="navbar-brand" href="{{ path ('accueil') }} " style="margin-left:15px;">Accueil</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -30,9 +30,9 @@
                     </ul>
                 </div>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <button type="button" class="btn btn-primary"><a class="liens" href="{{ path ('app_logout') }}">Se déconnecter</a></button> || <button type="button" class="btn btn-primary"><a class="liens" href="{{ path ('utilisateur') }}">Modifier Profil</a></button>
+                    <button type="button" class="btn btn-dark"><a class="liens" href="{{ path ('app_logout') }}">Se déconnecter</a></button><div class="vr" style="width:15px"></div><button type="button" class="btn btn-dark"><a class="liens" href="{{ path ('utilisateur') }}">Mon Profil</a></button>
                 {% else %}
-                    <button type="button" class="btn btn-primary"><a class="liens" href="{{ path ('app_login') }}">Se connecter</a></button> || <button type="button" class="btn btn-primary"><a class="liens" href="{{ path ('app_register') }}">S'inscrire</a></button>
+                    <button type="button" class="btn btn-dark"><a class="liens" href="{{ path ('app_login') }}">Se connecter</a></button><div class="vr" style="width:15px"></div><button type="button" class="btn btn-dark"><a class="liens" href="{{ path ('app_register') }}">S'inscrire</a></button>
                 {% endif %}
             </nav>
         

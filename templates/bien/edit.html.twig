@@ -7,7 +7,9 @@
 
     {{ include('bien/_form.html.twig', {'button_label': 'Enregistrer les changements'}) }}
 
-    {{ include('bien/_delete_form.html.twig') }}
+    <div class="options">
+        {{ include('bien/_delete_form.html.twig') }}
 
-    <a href="{{ path('bien_index') }}">Retour</a>
+        <button class="btn btn-dark"><a href="{{ path('bien_index') }}">Retour</a></button>
+    </div>
 {% endblock %}

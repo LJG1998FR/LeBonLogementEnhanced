@@ -1,4 +1,36 @@
-.liens {
+h1{
+    margin-left:15px;
+}
+.form{
+    font-family:'Times New Roman', Times, serif;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    margin: 0 35%;
+    border: solid;
+    border-radius: 10px;
+    padding-bottom: 10px;
+}
+.form_row{
+    margin-right:10px;
+    padding: 6px 12px;
+    border-radius: 10px;
+}
+label{
+    margin-right:10px;
+}
+.editbutton, #backtoprofilbutton, .options{
+    width: 30%;
+    margin: 0 35%;
+    margin-top: 10px;
+}
+.options{
+    display: flex;
+}
+.options button{
+    margin-right: 10px;
+}
+.liens, a {
     color:white;
     text-decoration: none;
 }
@@ -8,3 +40,14 @@
 .img-thumbnail{
     width:200px;
 }
+.carousel-control-prev-icon{
+    width: 50px;
+    height: 50px;
+}
+.carousel-control-next-icon{
+    width: 50px;
+    height: 50px;
+}
+.carousel-indicators button{
+    border-radius: 100%;
+  }

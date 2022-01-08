@@ -1,19 +1,31 @@
-{{ form_start(form) }}
-    {{ form_row(form.adresse) }}
-    {{ form_row(form.prix) }}
-    {{ form_row(form.superficie) }}
-    {{ form_row(form.date_de_depot, {'label' : 'Date De Dépôt'}) }}
-    {{ form_row(form.images) }}
+<div class="form">
+    {{ form_start(form) }}
+        <div class="form_row">
+            {{ form_row(form.adresse) }}
+        </div>
+        <div class="form_row">
+            {{ form_row(form.prix, {'label' : 'Prix (en euros)'}) }}
+        </div>
+        <div class="form_row">
+            {{ form_row(form.superficie) }}
+        </div>
+        <div class="form_row">
+            {{ form_row(form.date_de_depot, {'label' : 'Date De Dépôt'}) }}
+        </div>
+        <div class="form_row">
+            {{ form_row(form.images) }}
+        </div>
 
-	{% if app.request.attributes.get('_route') == 'bien_edit' %}
-        <h2>Images</h2>
-        {% for image in bien.images %}
-            <div>
-                <img src="{{ asset('/uploads/images/') }}{{ image.url }}" alt="Image" width="150">
+        {% if app.request.attributes.get('_route') == 'bien_edit' %}
+            <h2>Images</h2>
+            {% for image in bien.images %}
+                <div>
+                    <img src="{{ asset('/uploads/images/') }}{{ image.url }}" alt="Image" width="150">
 
-                <a href="{{ path('bien_delete_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}">Supprimer</a>
-            </div>
-        {% endfor %}
-    {% endif %}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+                    <button class="btn btn-dark"><a href="{{ path('bien_delete_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}">Supprimer</a></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <button class="btn btn-dark" style="margin-left:10px;">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+</div>

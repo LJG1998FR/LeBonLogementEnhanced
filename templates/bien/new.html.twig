@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Bien{% endblock %}
+{% block title %}Ajouter Un Bien{% endblock %}
 
 {% block body %}
     <h1>Ajouter Un Bien</h1>
 
     {{ include('bien/_form.html.twig') }}
-
-    <a href="{{ path('bien_index') }}">Retour</a>
+    <div class="options">
+        <button class="btn btn-dark"><a href="{{ path('bien_index') }}">Retour</a></button>
+    </div>
 {% endblock %}
