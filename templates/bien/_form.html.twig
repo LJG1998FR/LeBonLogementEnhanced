@@ -17,14 +17,14 @@
         </div>
 
         {% if app.request.attributes.get('_route') == 'bien_edit' %}
-            <h2>Images</h2>
-            {% for image in bien.images %}
-                <div>
+            <div class="imagesbox">
+                <h2>Images</h2>
+                {% for image in bien.images %}
                     <img src="{{ asset('/uploads/images/') }}{{ image.url }}" alt="Image" width="150">
 
                     <button class="btn btn-dark"><a href="{{ path('bien_delete_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}">Supprimer</a></button>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         {% endif %}
         <button class="btn btn-dark" style="margin-left:10px;">{{ button_label|default('Save') }}</button>
     {{ form_end(form) }}

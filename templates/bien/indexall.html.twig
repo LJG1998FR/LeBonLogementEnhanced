@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Biens{% endblock %}
+
+{% block body %}
+    <h1>Liste des Biens</h1>
+
+    {% for bien in biens %}
+            <div class="mdc-card" id="biencard">
+                <div class="mdc-card__primary-action" tabindex="0">
+                    <div id="mainbox" class="my-card__media mdc-card__media mdc-card__media--16-9">
+                        {% set break = false %}
+                        {% for image in images %}
+                            {% if break == false %}
+                                {% if bien.id == image.bien.getId() %}
+                                    {% set break = true %}
+                                    <img class="img-thumbnail" id="mainphoto" src="{{ asset('uploads/images/') }}{{ image.url }}" alt="photo">
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="demo-card__primary">
+                        <h2>{{ bien.adresse }}</h2>
+                    </div>
+                    <div class="demo-card__secondary mdc-typography mdc-typography--body2">
+                        <span>Prix (euros) : {{ bien.prix }}</span><br>
+                        <span>Superficie: {{ bien.superficie }}</span><br>
+                        <span>Déposé le: {{ bien.dateDeDepot ? bien.dateDeDepot|date('d-m-Y') : '' }} à {{ bien.dateDeDepot ? bien.dateDeDepot|date('H:i') : '' }}</span>
+                    </div>
+                </div>
+                <div class="mdc-card__actions">
+                    <button class="mdc-button mdc-card__action mdc-card__action--button">
+                        <a class="bienshow" href="{{ path('bien_show', {'id': bien.id}) }}"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                        </svg></a>
+                    </button>
+                </div>
+            </div>
+    {% endfor %}
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <a class="btn btn-dark" role="button" href="{{ path('bien_new') }}">Ajouter Un Bien</a>
+    {% else %}
+        <span>Vous devez être connecté(e) pour ajouter un bien.</span>
+    {% endif %}
+{% endblock %}

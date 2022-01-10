@@ -25,6 +25,15 @@ class BienController extends AbstractController
         ]);
     }
 
+    #[Route('/all', name: 'bien_all_index', methods: ['GET'])]
+    public function indexall(BienRepository $bienRepository, ImageRepository $imageRepository): Response
+    {
+        return $this->render('bien/indexall.html.twig', [
+            'biens' => $bienRepository->findAll(),
+            'images' => $imageRepository->findAll(),
+        ]);
+    }
+
     #[Route('/new', name: 'bien_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
@@ -76,9 +85,6 @@ class BienController extends AbstractController
     #[Route('/{id}', name: 'bien_show', methods: ['GET'])]
     public function show(Bien $bien): Response
     {
-        if ( $bien->getProprietaire() != $this->getUser() ) {
-            return $this->redirectToRoute('bien_index');
-        }
         return $this->render('bien/show.html.twig', [
             'bien' => $bien,
         ]);

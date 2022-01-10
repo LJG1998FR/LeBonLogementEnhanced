@@ -1,7 +1,7 @@
 h1{
     margin-left:15px;
 }
-.form{
+.form, .imagesbox{
     font-family:'Times New Roman', Times, serif;
     display: flex;
     flex-direction: column;
@@ -10,6 +10,10 @@ h1{
     border: solid;
     border-radius: 10px;
     padding-bottom: 10px;
+}
+.imagesbox{
+    display: inline-block;
+    margin-top: 10px;
 }
 .form_row{
     margin-right:10px;
@@ -63,4 +67,7 @@ label{
 }
 #mainbox::before{
     margin:0;
+}
+.bienshow{
+    color: black;
 }
