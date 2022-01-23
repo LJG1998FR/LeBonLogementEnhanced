@@ -49,7 +49,7 @@ class BienController extends AbstractController
             // On boucle sur les images
             foreach($images as $image){
                 // On génère un nouveau nom de fichier
-                $fichier = uniqid().'.'.$image->getClientOriginalName();
+                $fichier = uniqid().'.'.$image->guessExtension();
                 $destination = $this->getParameter('kernel.project_dir').'/public/uploads/images';
                 
                 // On copie le fichier dans le dossier uploads
@@ -134,20 +134,36 @@ class BienController extends AbstractController
     #[Route('/{id}', name: 'bien_delete', methods: ['POST'])]
     public function delete(Request $request, Bien $bien): Response
     {
+        $image = new Image();
         if ( $bien->getProprietaire() != $this->getUser() ) {
             return $this->redirectToRoute('bien_index');
         }
         if ($this->isCsrfTokenValid('delete'.$bien->getId(), $request->request->get('_token'))) {
+
+            $images = $bien->getImages();
+
+            // On boucle sur les images
+            foreach($images as $image){
+
+                $bien->removeImage($image);
+                $this->getDoctrine()->getManager()->remove($image);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($bien);
             $entityManager->flush();
+            $this->get('session')->getFlashBag()->add(
+                'bien',
+                'Bien supprimé avec succès!'
+            );
         }
 
         return $this->redirectToRoute('bien_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/supprime/image/{id}', name: 'bien_delete_image', methods: ['DELETE'])]
+    #[Route('/supprimer/image/{id}', name: 'bien_delete_image', methods: ["DELETE"])]
     public function deleteImage(Image $image, Request $request){
+        $bien = new Bien();
         if ( $bien->getProprietaire() != $this->getUser() ) {
             return $this->redirectToRoute('bien_index');
         }
