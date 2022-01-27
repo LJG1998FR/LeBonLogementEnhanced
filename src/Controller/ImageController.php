@@ -28,11 +28,11 @@ class ImageController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$image->getId(), $request->request->get('_token'))) {
             $nom = $image->getUrl();
             $filesystem = new Filesystem();
-            $filesystem->remove($nom);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($image);
             $entityManager->flush();
+            $filesystem->remove('../public/uploads/images/'.$nom);
             $this->get('session')->getFlashBag()->add(
                 'bien',
                 'Image supprimée avec succès!'

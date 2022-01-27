@@ -7,6 +7,7 @@ use App\Entity\Image;
 use App\Form\BienType;
 use App\Repository\BienRepository;
 use App\Repository\ImageRepository;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -145,6 +146,7 @@ class BienController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$bien->getId(), $request->request->get('_token'))) {
 
             $images = $bien->getImages();
+            $filesystem = new Filesystem();
 
             // On boucle sur les images
             foreach($images as $image){
@@ -152,6 +154,7 @@ class BienController extends AbstractController
                 $bien->removeImage($image);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->remove($image);
+                $filesystem->remove('../public/uploads/images/'.$image->getUrl());
             }
 
             $entityManager->remove($bien);
@@ -163,33 +166,6 @@ class BienController extends AbstractController
         }
 
         return $this->redirectToRoute('bien_index', [], Response::HTTP_SEE_OTHER);
-    }
-
-    #[Route('/supprimer/image/{id}', name: 'bien_delete_image', methods: ["DELETE"])]
-    public function deleteImage(Image $image, Request $request){
-        $bien = new Bien();
-        if ( $bien->getProprietaire() != $this->getUser() ) {
-            return $this->redirectToRoute('bien_index');
-        }
-        $data = json_decode($request->getContent(), true);
-
-        // On vérifie si le token est valide
-        if($this->isCsrfTokenValid('delete'.$image->getId(), $data['_token'])){
-            // On récupère le nom de l'image
-            $nom = $image->getUrl();
-            // On supprime le fichier
-            unlink($this->getParameter('app.path.biens_images').'/'.$nom);
-
-            // On supprime l'entrée de la base
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($image);
-            $em->flush();
-
-            // On répond en json
-            return new JsonResponse(['success' => 1]);
-        }else{
-            return new JsonResponse(['error' => 'Token Invalide'], 400);
-        }
     }
 
 }
