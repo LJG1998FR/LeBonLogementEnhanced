@@ -3,9 +3,11 @@
 {% block title %}Image{% endblock %}
 
 {% block body %}
-    <h1>Image</h1>
+    <main>
+        <h1>{{ image.url }}</h1>
 
-    <img src="{{ asset('/uploads/images/') }}{{ image.url }}" alt="Image" width="150">
+        <img src="{{ asset('/uploads/images/') }}{{ image.url }}" alt="Image" width="150">
 
-    {{ include('image/_delete_form.html.twig') }}
+        {{ include('image/_delete_form.html.twig') }}
+    </main>
 {% endblock %}

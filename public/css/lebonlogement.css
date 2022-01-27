@@ -1,7 +1,7 @@
 h1{
     margin-left:15px;
 }
-.form, .imagesbox{
+.form, .imagesbox, main{
     font-family:'Times New Roman', Times, serif;
     display: flex;
     flex-direction: column;
@@ -10,6 +10,9 @@ h1{
     border: solid;
     border-radius: 10px;
     padding-bottom: 10px;
+}
+main{
+    margin-top:15%;
 }
 .imagesbox{
     display: inline-block;

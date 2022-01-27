@@ -28,7 +28,7 @@ class ImageController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$image->getId(), $request->request->get('_token'))) {
             $nom = $image->getUrl();
             $filesystem = new Filesystem();
-            $filesystem->remove($this->getParameter('app.path.biens_images').'/'.$nom);
+            $filesystem->remove($nom);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($image);

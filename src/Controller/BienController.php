@@ -121,6 +121,10 @@ class BienController extends AbstractController
                 $bien->addImage($img);
             }
             $this->getDoctrine()->getManager()->flush();
+            $this->get('session')->getFlashBag()->add(
+                'bien',
+                'Modifications enregistrées!'
+            );
 
             return $this->redirectToRoute('bien_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -146,10 +150,10 @@ class BienController extends AbstractController
             foreach($images as $image){
 
                 $bien->removeImage($image);
-                $this->getDoctrine()->getManager()->remove($image);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($image);
             }
 
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($bien);
             $entityManager->flush();
             $this->get('session')->getFlashBag()->add(
