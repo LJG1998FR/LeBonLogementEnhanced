@@ -1,13 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Image{% endblock %}
+{% block title %}Supprimer Une Image - Confirmation{% endblock %}
 
 {% block body %}
     <main>
-        <h1>{{ image.url }}</h1>
+        <h1>Vous êtes sur le point de supprimer cette image :</h1>
 
-        <img src="{{ asset('/uploads/images/') }}{{ image.url }}" alt="Image" width="150">
+        <img src="{{ asset('/uploads/images/') }}{{ image.url }}" alt="Image" style="width:100%">
 
-        {{ include('image/_delete_form.html.twig') }}
+        <div class="optionsdelete">
+            {{ include('image/_delete_form.html.twig') }}
+            <button class="btn btn-dark"><a href="{{ path('bien_index') }}">Revenir à la liste de vos biens</a></button>
+        </div>
     </main>
 {% endblock %}
