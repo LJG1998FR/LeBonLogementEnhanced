@@ -10,9 +10,6 @@
             {{ form_row(form.superficie) }}
         </div>
         <div class="form_row">
-            {{ form_row(form.date_de_depot, {'label' : 'Date De Dépôt'}) }}
-        </div>
-        <div class="form_row">
             {{ form_row(form.images) }}
         </div>
 
@@ -21,7 +18,7 @@
                 <h2>Images</h2>
                 {% for image in bien.images %}
                     <div>
-                        <img src="{{ asset('/uploads/images/') }}{{ image.url }}" alt="Image" width="150">
+                        <img class="imagesbien" src="{{ asset('/uploads/images/') }}{{ image.url }}" alt="Image" width="150">
 
                         <a role="button" class="btn btn-dark" href="{{ path('image_delete', {'id': image.id}) }}">Supprimer</a>
                     </div>

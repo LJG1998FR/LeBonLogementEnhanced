@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\Length;
 
 class BienType extends AbstractType
 {
@@ -16,7 +17,6 @@ class BienType extends AbstractType
             ->add('adresse')
             ->add('prix')
             ->add('superficie')
-            ->add('date_de_depot')
             ->add('images', FileType::class,[
                 'label' => false,
                 'multiple' => true,

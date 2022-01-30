@@ -12,4 +12,15 @@
 
         <button class="btn btn-dark"><a href="{{ path('bien_index') }}">Retour</a></button>
     </div>
+    <div id="myModal" class="modal">
+
+        <span class="close">&times;</span>
+
+        <img class="modal-content" id="img01">
+        <div id="caption"></div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/lebonlogement.js') }}" defer></script>
 {% endblock %}

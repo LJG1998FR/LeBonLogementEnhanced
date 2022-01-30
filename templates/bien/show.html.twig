@@ -15,12 +15,6 @@
         <div class="form_row">
             Superficie: {{ bien.superficie }}
         </div>
-        <div class="form_row">
-            Déposé le: {{ bien.dateDeDepot ? bien.dateDeDepot|date('d-m-Y') : '' }} à {{ bien.dateDeDepot ? bien.dateDeDepot|date('H-i') : '' }}
-        </div>
-        <div class="form_row">
-            Propriétaire: {{ bien.proprietaire }}
-        </div>
     </div>
     {% if app.request.attributes.get('_route') == 'bien_show' %}
         <div class="imagesbox">
