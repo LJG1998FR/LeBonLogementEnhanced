@@ -4,7 +4,10 @@
             {{ form_row(form.adresse) }}
         </div>
         <div class="form_row">
-            {{ form_row(form.prix, {'label' : 'Prix (en euros)'}) }}
+            {{ form_row(form.coordonnees, {'label' : 'Coordonnées'}) }}
+        </div>
+        <div class="form_row">
+            {{ form_row(form.prix, {'label' : 'Prix (€)'}) }}
         </div>
         <div class="form_row">
             {{ form_row(form.superficie) }}

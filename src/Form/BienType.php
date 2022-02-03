@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Bien;
+use App\Entity\Coordonnees;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,6 +16,7 @@ class BienType extends AbstractType
     {
         $builder
             ->add('adresse')
+            ->add('coordonnees')
             ->add('prix')
             ->add('superficie')
             ->add('images', FileType::class,[

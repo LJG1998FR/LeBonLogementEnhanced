@@ -3,14 +3,19 @@
 {% block title %}LeBonLogement - Regarder un bien{% endblock %}
 
 {% block body %}
-    <h1>{{ bien.adresse }}</h1>
     <div class="form">
         <h2>Informations</h2>
         <div class="form_row">
             Adresse: {{ bien.adresse }}
         </div>
         <div class="form_row">
-            Prix: {{ bien.prix }} euros
+            Code Postal: {{ bien.coordonnees.codepostal }}
+        </div>
+        <div class="form_row">
+            Commune: {{ bien.coordonnees.commune }}
+        </div>
+        <div class="form_row">
+            Prix: {{ bien.prix }} €
         </div>
         <div class="form_row">
             Superficie: {{ bien.superficie }}

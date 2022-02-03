@@ -51,6 +51,11 @@ class Bien
      */
     private $images;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Coordonnees::class, inversedBy="biens")
+     */
+    private $coordonnees;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -150,6 +155,18 @@ class Bien
                 $image->setBien(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCoordonnees(): ?Coordonnees
+    {
+        return $this->coordonnees;
+    }
+
+    public function setCoordonnees(?Coordonnees $coordonnees): self
+    {
+        $this->coordonnees = $coordonnees;
 
         return $this;
     }
