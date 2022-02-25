@@ -32,7 +32,7 @@ class Bien
     private $prix;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="integer")
      */
     private $superficie;
 
@@ -85,12 +85,12 @@ class Bien
         return $this;
     }
 
-    public function getSuperficie(): ?string
+    public function getSuperficie(): ?int
     {
         return $this->superficie;
     }
 
-    public function setSuperficie(string $superficie): self
+    public function setSuperficie(int $superficie): self
     {
         $this->superficie = $superficie;
 
