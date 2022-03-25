@@ -17,7 +17,7 @@
             <p>Téléphone : {{ app.user.telephone }}</p>
         </div>
         <div class="editbutton">
-            <button type="button" class="btn btn-dark"><a class="liens" href="{{ path('utilisateur_modifierprofil') }} ">Changer le profil</a></button>
-            <button type="button" class="btn btn-dark"><a class="liens" href="{{ path('utilisateur_modifierpass') }} ">Changer le mot de passe</a></button>
+            <a class="liens" href="{{ path('utilisateur_modifierprofil') }} "><button type="button" class="btn btn-dark">Changer le profil</button></a>
+            <a class="liens" href="{{ path('utilisateur_modifierpass') }} "><button type="button" class="btn btn-dark">Changer le mot de passe</button></a>
         </div>
 {% endblock %}

@@ -36,9 +36,9 @@
                     </ul>
                 </div>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <button type="button" class="btn btn-dark"><a class="liens" href="{{ path ('app_logout') }}">Se déconnecter</a></button><div class="vr" style="width:15px"></div><button type="button" class="btn btn-dark"><a class="liens" href="{{ path ('utilisateur') }}">Mon Profil</a></button>
+                    <a class="liens" href="{{ path ('app_logout') }}"><button type="button" class="btn btn-dark">Se déconnecter</button></a><div class="vr" style="width:15px"></div><a class="liens" href="{{ path ('utilisateur') }}"><button type="button" class="btn btn-dark">Mon Profil</button></a>
                 {% else %}
-                    <button type="button" class="btn btn-dark"><a class="liens" href="{{ path ('app_login') }}">Se connecter</a></button><div class="vr" style="width:15px"></div><button type="button" class="btn btn-dark"><a class="liens" href="{{ path ('app_register') }}">S'inscrire</a></button>
+                    <a class="liens" href="{{ path ('app_login') }}"><button type="button" class="btn btn-dark">Se connecter</button></a><div class="vr" style="width:15px"></div><a class="liens" href="{{ path ('app_register') }}"><button type="button" class="btn btn-dark">S'inscrire</button></a>
                 {% endif %}
             </nav>
         
