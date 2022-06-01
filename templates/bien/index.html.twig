@@ -55,6 +55,7 @@
 
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <a class="btn btn-dark" role="button" href="{{ path('bien_new') }}">Ajouter Un Bien</a>
+        <a class="btn btn-dark" role="button" href="{{ path('email', {'email': app.user.email}) }}">Envoyer Un Mail</a>
     {% else %}
         <span>Vous devez être connecté(e) pour ajouter un bien.</span>
     {% endif %}
