@@ -11,9 +11,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class EmailController extends AbstractController
 {
-    #[Route('/{email}', name: 'email')]
-    public function sendEmail(MailerInterface $mailer, Utilisateur $user): Response
+    #[Route('/envoyeremail/{user}', name: 'email')]
+    public function sendEmail(MailerInterface $mailer): Response
     {
+        $user = $this->getUser();
         $email = (new Email())
             ->from('ljgalt1@gmail.com')
             ->to($user->getEmail())
